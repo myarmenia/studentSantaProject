@@ -1,0 +1,40 @@
+import UserService from "../Service/UserService.js";
+
+const UserController = {
+  signUp: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const signUpUSer = await UserService.signUp(email, password);
+      res.status(201).send(signUpUSer);
+    } catch (error) {}
+  },
+  signIn: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      const signInUser = await UserService.signIn(email, password);
+
+      res.cookie("token", signInUser.token, {
+        httpOnly: true,
+        sameSite: "strict",
+        // secure: true
+      });
+
+      res.status(201).send({ message: signInUser.message });
+    } catch (error) {}
+  },
+  logout: async (req, res) => {
+    try {
+      console.log(req.headers);
+      const token = req.headers["cookie"].split("=")[1];
+      //   const token = req.cookies.token;
+      console.log(token);
+      console.log("sss");
+      //   const logoutuser = await UserService.logout(token, res);
+
+      res.status(200).send(logoutuser);
+    } catch (error) {}
+  },
+};
+
+export default UserController;
