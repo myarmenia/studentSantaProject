@@ -1,5 +1,6 @@
 import { Router } from "express";
 import itemController from "../Controller/GiftItemsController.js";
+import isAuth from "../Middleware/IsAuth.js";
 
 const itemRouter = Router();
 
@@ -25,6 +26,6 @@ const itemRouter = Router();
  *                $ref: "#/components/schemas/Items"
  */
 
-itemRouter.get("/items", itemController.getItems);
+itemRouter.get("/items",isAuth,itemController.getItems);
 
 export default itemRouter;

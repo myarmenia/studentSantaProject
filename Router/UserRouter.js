@@ -72,6 +72,13 @@ UserRouter.post("/signup", UserController.signUp);
 
 UserRouter.post("/signin", UserController.signIn);
 
+
+UserRouter.post("/refresh",UserController.refresh)
+
+
+
+
+
 /**
  * @swagger
  *  /api/auth/logout:
@@ -89,5 +96,7 @@ UserRouter.post("/signin", UserController.signIn);
  */
 
 UserRouter.post("/logout", UserController.logout);
+
+
 
 export default UserRouter;

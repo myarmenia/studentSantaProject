@@ -1,3 +1,4 @@
+import RefreshToken from "../Model/TokenModel.js";
 import UserService from "../Service/UserService.js";
 
 const UserController = {
@@ -14,19 +15,31 @@ const UserController = {
 
       const signInUser = await UserService.signIn(email, password);
 
-      res.cookie("token", signInUser.token, {
-        httpOnly: true,
-        sameSite: "strict",
-        // secure: true
-      });
+      // res.cookie("token", signInUser.token, {
+      //   httpOnly: true,
+      //   sameSite: "strict",
+      //   // secure: true
+      // });
 
-      res.status(201).send({ message: signInUser.message });
+      res.status(201).send(signInUser);
     } catch (error) {}
+  },
+  refresh:async (req,res)=>{
+    try {
+       const refreshToken=req.body
+    
+    const token=await UserService.refresh(refreshToken)
+    res.send(token)
+    } catch (error) {
+      console.error(error)
+    }
+   
+
   },
   logout: async (req, res) => {
     try {
       console.log(req.headers);
-      const token = req.headers["cookie"].split("=")[1];
+      const token = req.headers.authorization.split("=")[1];
       //   const token = req.cookies.token;
       console.log(token);
       console.log("sss");

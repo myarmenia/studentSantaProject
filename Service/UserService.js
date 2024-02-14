@@ -1,6 +1,7 @@
 import UserModel from "../Model/UserModel.js";
 import bcrypt from "bcrypt";
-import generateToken from "../Utils/Token.js";
+import {generateAccessToken, generateRefreshToken } from "../Utils/Token.js";
+import RefreshToken from "../Model/TokenModel.js";
 
 const UserService = {
   signUp: async (email, password) => {
@@ -23,11 +24,37 @@ const UserService = {
       return { message: "wrong e-mail" };
     }
     if (bcrypt.compareSync(password, signUp.password)) {
-      const token = generateToken(signUp);
-
-      return { token: token, message: "Logged In" };
+      const accessToken = generateAccessToken(signUp);
+      const refreshToken=generateRefreshToken(signUp)
+      const newToken=new RefreshToken({
+        userId:signUp._id,
+        token:refreshToken
+      })
+      newToken.save()
+      console.log(newToken);
+      return { accessToken: accessToken,refreshToken:refreshToken, message: "Logged In" };
     } else {
       return { message: "wrong password" };
+    }
+  },
+  refresh:async(refreshToken)=>{
+    try {
+      if(refreshToken){
+         const token=await RefreshToken.findOne({token:refreshToken})
+      if(!token){
+        return {message:"User not logged"}
+      }
+     await RefreshToken.findOneAndDelete({token:refreshToken})
+      const newAccessToken=generateRefreshToken()
+      const newRefreshToken=generateAccessToken()
+      newRefreshToken
+      return 
+      }else{
+        return {message:"not logged in"}
+      }
+     
+    } catch (error) {
+      console.error(error)
     }
   },
   logout: async (token, res) => {
