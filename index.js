@@ -31,9 +31,6 @@ app.use(
   swaggerUI.setup(specs, { explorer: true })
 );
 
-console.log("====================================");
-console.log("asdfghjkl;lkjhgfds");
-console.log("====================================");
 
 app.use("/api/boxes", boxRouter);
 app.use("/api", seedRouter);

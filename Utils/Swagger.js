@@ -3,9 +3,7 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 const dotenv = configDotenv();
 
-console.log("====================================");
-console.log(process.env.PORT);
-console.log("====================================");
+
 export const options = {
   explorer: true,
   swaggerDefinition: {
