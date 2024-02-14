@@ -1,5 +1,11 @@
+import { configDotenv } from "dotenv";
 import swaggerJSDoc from "swagger-jsdoc";
 
+const dotenv = configDotenv();
+
+console.log("====================================");
+console.log(process.env.PORT);
+console.log("====================================");
 export const options = {
   explorer: true,
   swaggerDefinition: {
@@ -10,8 +16,9 @@ export const options = {
       description: "Student Project:Secret Santa App APIs",
     },
     servers: [
-      { url: "http://localhost:5000/" },
       { url: "http://santa.trigger.ltd" },
+      { url: "http://195.181.242.194" },
+      { url: `http://localhost:${process.env.PORT}` },
     ],
     components: {
       request: {
