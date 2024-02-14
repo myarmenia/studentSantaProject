@@ -47,7 +47,7 @@ const UserService = {
      await RefreshToken.findOneAndDelete({token:refreshToken})
       const newAccessToken=generateRefreshToken()
       const newRefreshToken=generateAccessToken()
-      newRefreshToken
+      
       return 
       }else{
         return {message:"not logged in"}
