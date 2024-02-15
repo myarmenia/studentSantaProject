@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const isAuth = (req, res, next) => {
-  //   const token = req.cookies.token;
+  
   if (!req.headers.authorization) {
    return  res.send({message:"User not logged"})
   }
