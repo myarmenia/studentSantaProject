@@ -20,7 +20,7 @@ const UserService = {
   },
   signIn: async (email, password) => {
     const signUp = await UserModel.findOne({ email });
-
+    
     if (!signUp) {
       return { message: "wrong e-mail" };
     }
@@ -32,6 +32,8 @@ const UserService = {
         userId: signUp._id,
         token: refreshToken,
       });
+      
+      await RefreshToken.deleteMany({})
       newToken.save();
 
       return {
