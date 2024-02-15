@@ -8,7 +8,7 @@ export const generateAccessToken = (user) => {
 
   try {
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN, {
-      expiresIn: "10s",
+      expiresIn: "15m",
     });
 
     return token;
@@ -33,6 +33,3 @@ export const generateRefreshToken = (user) => {
     throw new Error("Token generate error", error.message);
   }
 };
-
-
-

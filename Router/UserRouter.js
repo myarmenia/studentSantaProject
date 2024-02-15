@@ -72,12 +72,36 @@ UserRouter.post("/signup", UserController.signUp);
 
 UserRouter.post("/signin", UserController.signIn);
 
+/**
+ * @swagger
+ *  /api/auth/refresh:
+ *   post:
+ *      summary: User Refresh
+ *      tags: [Auth]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                  format: email
+ *                refreshToken:
+ *                  type: string
+ *                  format: token
+ *      responses:
+ *          200:
+ *              description: Success
+ *              contents:
+ *                  application/json:
+ *                      schema:
+ *                          $ref:"#/component/schemas/refreshToken"
+ *
+ */
 
-UserRouter.post("/refresh",UserController.refresh)
-
-
-
-
+UserRouter.post("/refresh", UserController.refresh);
 
 /**
  * @swagger
@@ -96,7 +120,5 @@ UserRouter.post("/refresh",UserController.refresh)
  */
 
 UserRouter.post("/logout", UserController.logout);
-
-
 
 export default UserRouter;

@@ -1,6 +1,6 @@
 import UserModel from "../Model/UserModel.js";
 import bcrypt from "bcrypt";
-import {generateAccessToken, generateRefreshToken } from "../Utils/Token.js";
+import { generateAccessToken, generateRefreshToken } from "../Utils/Token.js";
 import RefreshToken from "../Model/TokenModel.js";
 
 const UserService = {
@@ -20,41 +20,53 @@ const UserService = {
   },
   signIn: async (email, password) => {
     const signUp = await UserModel.findOne({ email });
+
     if (!signUp) {
       return { message: "wrong e-mail" };
     }
     if (bcrypt.compareSync(password, signUp.password)) {
       const accessToken = generateAccessToken(signUp);
-      const refreshToken=generateRefreshToken(signUp)
-      const newToken=new RefreshToken({
-        userId:signUp._id,
-        token:refreshToken
-      })
-      newToken.save()
-      console.log(newToken);
-      return { accessToken: accessToken,refreshToken:refreshToken, message: "Logged In" };
+
+      const refreshToken = generateRefreshToken(signUp);
+      const newToken = new RefreshToken({
+        userId: signUp._id,
+        token: refreshToken,
+      });
+      newToken.save();
+
+      return {
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        message: "Logged In",
+      };
     } else {
       return { message: "wrong password" };
     }
   },
-  refresh:async(refreshToken)=>{
+  refresh: async (refreshToken, email) => {
     try {
-      if(refreshToken){
-         const token=await RefreshToken.findOne({token:refreshToken})
-      if(!token){
-        return {message:"User not logged"}
+      if (refreshToken) {
+        const token = await RefreshToken.findOne({ token: refreshToken });
+        if (!token) {
+          return { message: "User not logged" };
+        }
+        await RefreshToken.findOneAndDelete({ token: refreshToken });
+        const signUp = await UserModel.findOne({ email });
+
+        const newAccessToken = generateRefreshToken(signUp);
+        const newRefreshToken = generateAccessToken(signUp);
+
+        const newRefreshTokenMongoDB = new RefreshToken({
+          userId: signUp._id,
+          token: newRefreshToken,
+        });
+        newRefreshTokenMongoDB.save();
+        return { newAccessToken, newRefreshToken };
+      } else {
+        return { message: "not logged in" };
       }
-     await RefreshToken.findOneAndDelete({token:refreshToken})
-      const newAccessToken=generateRefreshToken()
-      const newRefreshToken=generateAccessToken()
-      
-      return 
-      }else{
-        return {message:"not logged in"}
-      }
-     
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   },
   logout: async (token, res) => {

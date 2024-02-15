@@ -1,14 +1,15 @@
-import { Schema,model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-
-const tokenSchema=new Schema({
-    userId:{type:Schema.Types.ObjectId,required:true},
-    token:{type:String,required:true,unique:true}
-},
-{
+const tokenSchema = new Schema(
+  {
+    userId: { type: Schema.Types.ObjectId, required: true },
+    token: { type: String, required: true, unique: true },
+  },
+  {
     timestamps: true,
-})
+  }
+);
 
-const RefreshToken=model("Token",tokenSchema)
+const RefreshToken = model("Token", tokenSchema);
 
-export default RefreshToken
+export default RefreshToken;

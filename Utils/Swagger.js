@@ -3,7 +3,6 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 const dotenv = configDotenv();
 
-
 export const options = {
   explorer: true,
   swaggerDefinition: {
@@ -120,6 +119,13 @@ export const options = {
           properties: {
             email: { type: "string", description: "required" },
             password: { type: "string", description: "required" },
+          },
+        },
+        refreshToken: {
+          type: "object",
+          properties: {
+            userId: { type: "string", description: "required" },
+            token: { type: "string", description: "required" },
           },
         },
         Items: {

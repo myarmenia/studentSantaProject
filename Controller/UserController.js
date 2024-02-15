@@ -24,25 +24,21 @@ const UserController = {
       res.status(201).send(signInUser);
     } catch (error) {}
   },
-  refresh:async (req,res)=>{
+  refresh: async (req, res) => {
     try {
-       const refreshToken=req.body
-    
-    const token=await UserService.refresh(refreshToken)
-    res.send(token)
-    } catch (error) {
-      console.error(error)
-    }
-   
+      const { refreshToken, email } = req.body;
 
+      const token = await UserService.refresh(refreshToken, email);
+      res.send(token);
+    } catch (error) {
+      console.error(error);
+    }
   },
   logout: async (req, res) => {
     try {
-      console.log(req.headers);
       const token = req.headers.authorization.split("=")[1];
       //   const token = req.cookies.token;
-      console.log(token);
-      console.log("sss");
+
       //   const logoutuser = await UserService.logout(token, res);
 
       res.status(200).send(logoutuser);
