@@ -200,7 +200,19 @@ export const options = {
           },
         },
       },
+      securitySchema: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./Router/*.js"],
 };

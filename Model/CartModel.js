@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const CartCategories = new Schema(
+const CartSchema = new Schema(
   {
     title: { type: String },
     img: { type: String },
@@ -10,6 +10,6 @@ const CartCategories = new Schema(
   }
 );
 
-const CartCategoriesModel = model("CartCategoriesModel", CartCategories);
+const Cart = model("Cart", CartSchema);
 
-export default CartCategoriesModel;
+export default Cart;

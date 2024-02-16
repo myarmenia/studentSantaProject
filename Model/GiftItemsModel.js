@@ -8,7 +8,7 @@ const GiftItemsSchema = new Schema(
     subCategories: [
       {
         type: Schema.Types.ObjectId,
-        ref: "GiftCategoriesModel",
+        ref: "GiftCategories",
       },
     ],
   },

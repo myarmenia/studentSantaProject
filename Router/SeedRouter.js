@@ -1,8 +1,8 @@
 import { Router } from "express";
 import GiftItems from "../Model/GiftItemsModel.js";
 import data from "../Data/Data.js";
-import GiftCategoriesModel from "../Model/GiftCategoriesModel.js";
-import GiftBoxModel from "../Model/GiftBoxModel.js";
+import GiftCategories from "../Model/GiftCategoriesModel.js";
+import GiftBox from "../Model/GiftBoxModel.js";
 
 const seedRouter = Router();
 
@@ -30,8 +30,8 @@ const seedRouter = Router();
 
 seedRouter.get("/seed", async (req, res) => {
   await GiftItems.deleteMany({});
-  await GiftCategoriesModel.deleteMany({});
-  await GiftBoxModel.deleteMany({});
+  await GiftCategories.deleteMany({});
+  await GiftBox.deleteMany({});
 
   const seededItems = await GiftItems.insertMany(data);
 
@@ -69,12 +69,12 @@ seedRouter.get("/seed", async (req, res) => {
     }
   }
 
-  const seededCategories = await GiftCategoriesModel.insertMany(resArray);
+  const seededCategories = await GiftCategories.insertMany(resArray);
   //categories seed
 
   //categories Id save item subcatgories
   for (let i = 0; i < seededItems.length; i++) {
-    const categories = await GiftCategoriesModel.find({
+    const categories = await GiftCategories.find({
       giftItemsId: seededItems[i]._id,
     });
     // console.log("tvyal categorian",categories);
@@ -135,11 +135,11 @@ seedRouter.get("/seed", async (req, res) => {
     }
   }
 
-  const seededbox = await GiftBoxModel.insertMany(resArraybox);
+  const seededbox = await GiftBox.insertMany(resArraybox);
 
   //boxes Id save categories product_range
   for (let i = 0; i < seededCategories.length; i++) {
-    const categories = await GiftBoxModel.find({
+    const categories = await GiftBox.find({
       CategoriesId: seededCategories[i]._id,
     });
     // console.log("tvyal categorian",categories);

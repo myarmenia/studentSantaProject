@@ -1,13 +1,13 @@
-import UserModel from "../Model/UserModel.js";
+import User from "../Model/UserModel.js";
 import bcrypt from "bcrypt";
 import { generateAccessToken, generateRefreshToken } from "../Utils/Token.js";
 import RefreshToken from "../Model/TokenModel.js";
 
-const UserService = {
+const userService = {
   signUp: async (email, password) => {
-    const signUp = await UserModel.findOne({ email });
+    const signUp = await User.findOne({ email });
     if (!signUp) {
-      const newUser = new UserModel({
+      const newUser = new User({
         email: email,
         password: await bcrypt.hash(password, 10),
       });
@@ -19,8 +19,8 @@ const UserService = {
     }
   },
   signIn: async (email, password) => {
-    const signUp = await UserModel.findOne({ email });
-    
+    const signUp = await User.findOne({ email });
+
     if (!signUp) {
       return { message: "wrong e-mail" };
     }
@@ -32,8 +32,8 @@ const UserService = {
         userId: signUp._id,
         token: refreshToken,
       });
-      
-      await RefreshToken.deleteMany({})
+
+      await RefreshToken.deleteMany({});
       newToken.save();
 
       return {
@@ -53,7 +53,7 @@ const UserService = {
           return { message: "User not logged" };
         }
         await RefreshToken.findOneAndDelete({ token: refreshToken });
-        const signUp = await UserModel.findOne({ email });
+        const signUp = await User.findOne({ email });
 
         const newAccessToken = generateRefreshToken(signUp);
         const newRefreshToken = generateAccessToken(signUp);
@@ -83,4 +83,4 @@ const UserService = {
   },
 };
 
-export default UserService;
+export default userService;

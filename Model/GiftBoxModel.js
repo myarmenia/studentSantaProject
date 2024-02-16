@@ -5,13 +5,13 @@ const GiftBoxSchema = new Schema(
     name: { type: String },
     img: { type: String },
     price: { type: Number },
-    CategoriesId: { type: Schema.Types.ObjectId, ref: "GiftCategoriesModel" },
+    CategoriesId: { type: Schema.Types.ObjectId, ref: "GiftCategories" },
   },
   {
     timestamps: true,
   }
 );
 
-const GiftBoxModel = model("GiftBox", GiftBoxSchema);
+const GiftBox = model("GiftBox", GiftBoxSchema);
 
-export default GiftBoxModel;
+export default GiftBox;

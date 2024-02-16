@@ -28,6 +28,6 @@ const boxRouter = Router();
  *
  */
 
-boxRouter.get("/:id",isAuth, boxController.getBoxesById);
+boxRouter.get("/:id", isAuth, boxController.getBoxesById);
 
 export default boxRouter;

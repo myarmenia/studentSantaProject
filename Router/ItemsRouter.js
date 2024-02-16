@@ -1,8 +1,8 @@
 import { Router } from "express";
-import itemController from "../Controller/GiftItemsController.js";
+import itemsController from "../Controller/GiftItemsController.js";
 import isAuth from "../Middleware/IsAuth.js";
 
-const itemRouter = Router();
+const itemsRouter = Router();
 
 /**
  * @swagger
@@ -26,6 +26,6 @@ const itemRouter = Router();
  *                $ref: "#/components/schemas/Items"
  */
 
-itemRouter.get("/items",isAuth,itemController.getItems);
+itemsRouter.get("/items", isAuth, itemsController.getItems);
 
-export default itemRouter;
+export default itemsRouter;

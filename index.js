@@ -7,10 +7,10 @@ import categoriesRouter from "./Router/CategoriesRouter.js";
 import connection from "./Utils/Connection.js";
 import seedRouter from "./Router/SeedRouter.js";
 import boxRouter from "./Router/BoxRouter.js";
-import UserRouter from "./Router/UserRouter.js";
+import userRouter from "./Router/UserRouter.js";
 import swaggerUI from "swagger-ui-express";
 import { specs } from "./Utils/Swagger.js";
-import itemRouter from "./Router/ItemsRouter.js";
+import itemsRouter from "./Router/ItemsRouter.js";
 
 const app = express();
 const dotenv = configDotenv();
@@ -31,12 +31,11 @@ app.use(
   swaggerUI.setup(specs, { explorer: true })
 );
 
-
 app.use("/api/boxes", boxRouter);
 app.use("/api", seedRouter);
 app.use("/api/categories", categoriesRouter);
-app.use("/api/auth", UserRouter);
-app.use("/api/get", itemRouter);
+app.use("/api/auth", userRouter);
+app.use("/api/get", itemsRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`localhost ${process.env.PORT}`);

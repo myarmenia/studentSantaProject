@@ -28,6 +28,6 @@ const categoriesRouter = Router();
  *
  */
 
-categoriesRouter.get("/:id",isAuth, categoriesController.getCategoriesById);
+categoriesRouter.get("/:id", isAuth, categoriesController.getCategoriesById);
 
 export default categoriesRouter;

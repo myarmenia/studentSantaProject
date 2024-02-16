@@ -1,9 +1,9 @@
-import GiftBoxModel from "../Model/GiftBoxModel.js";
+import GiftBox from "../Model/GiftBoxModel.js";
 
-const GiftBoxService = {
+const giftBoxService = {
   getBoxesById: async (id) => {
     try {
-      const boxes = await GiftBoxModel.find({ CategoriesId: id });
+      const boxes = await GiftBox.find({ CategoriesId: id });
       return boxes;
     } catch (error) {
       console.error({ message: "Boxes not found" });
@@ -11,4 +11,4 @@ const GiftBoxService = {
   },
 };
 
-export default GiftBoxService;
+export default giftBoxService;

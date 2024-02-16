@@ -1,6 +1,6 @@
 import GiftItems from "../Model/GiftItemsModel.js";
 
-const itemService = {
+const itemsService = {
   getitems: async () => {
     try {
       let items = await GiftItems.find().populate({
@@ -16,4 +16,4 @@ const itemService = {
   },
 };
 
-export default itemService;
+export default itemsService;

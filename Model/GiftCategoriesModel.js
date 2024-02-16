@@ -13,6 +13,6 @@ const GiftCategoriesSchema = new Schema(
   }
 );
 
-const GiftCategoriesModel = model("GiftCategoriesModel", GiftCategoriesSchema);
+const GiftCategories = model("GiftCategories", GiftCategoriesSchema);
 
-export default GiftCategoriesModel;
+export default GiftCategories;

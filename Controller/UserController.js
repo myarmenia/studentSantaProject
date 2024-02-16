@@ -1,7 +1,7 @@
 import RefreshToken from "../Model/TokenModel.js";
 import UserService from "../Service/UserService.js";
 
-const UserController = {
+const userController = {
   signUp: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -46,4 +46,4 @@ const UserController = {
   },
 };
 
-export default UserController;
+export default userController;

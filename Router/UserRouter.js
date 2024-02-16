@@ -1,7 +1,7 @@
 import { Router } from "express";
-import UserController from "../Controller/UserController.js";
+import userController from "../Controller/UserController.js";
 
-const UserRouter = Router();
+const userRouter = Router();
 
 /**
  * @swagger
@@ -39,7 +39,7 @@ const UserRouter = Router();
  *
  */
 
-UserRouter.post("/signup", UserController.signUp);
+userRouter.post("/signup", userController.signUp);
 
 /**
  * @swagger
@@ -70,7 +70,7 @@ UserRouter.post("/signup", UserController.signUp);
  *
  */
 
-UserRouter.post("/signin", UserController.signIn);
+userRouter.post("/signin", userController.signIn);
 
 /**
  * @swagger
@@ -101,7 +101,7 @@ UserRouter.post("/signin", UserController.signIn);
  *
  */
 
-UserRouter.post("/refresh", UserController.refresh);
+userRouter.post("/refresh", userController.refresh);
 
 /**
  * @swagger
@@ -119,6 +119,6 @@ UserRouter.post("/refresh", UserController.refresh);
  *
  */
 
-UserRouter.post("/logout", UserController.logout);
+userRouter.post("/logout", userController.logout);
 
-export default UserRouter;
+export default userRouter;
