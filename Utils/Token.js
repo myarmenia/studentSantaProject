@@ -25,7 +25,7 @@ export const generateRefreshToken = (user) => {
 
   try {
     const token = jwt.sign(payload, process.env.REFRESH_TOKEN, {
-      expiresIn: "1m",
+      expiresIn: "5m",
     });
 
     return token;

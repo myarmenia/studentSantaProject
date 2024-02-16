@@ -18,6 +18,8 @@ const categoriesRouter = Router();
  *          schema:
  *            type: string
  *            format: id
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *          200:
  *              description: Success

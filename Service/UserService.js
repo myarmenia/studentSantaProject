@@ -74,6 +74,7 @@ const userService = {
   logout: async (token, res) => {
     try {
       if (!token) {
+        await RefreshToken.deleteMany({})
         return { message: "User out" };
       } else {
         await res.clearCookies("token");
