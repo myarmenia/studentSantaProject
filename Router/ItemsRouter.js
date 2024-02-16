@@ -17,6 +17,8 @@ const itemsRouter = Router();
  *    get:
  *      summary: Items
  *      tags: [Data]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        200:
  *          description: Success

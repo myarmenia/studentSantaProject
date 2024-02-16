@@ -25,7 +25,7 @@ const seedRouter = Router();
  *          contents:
  *            application/json:
  *              schema:
- *                $ref: "#/components/schemas/Seed"
+ *                $ref: "#/components/request/Seed"
  */
 
 seedRouter.get("/seed", async (req, res) => {

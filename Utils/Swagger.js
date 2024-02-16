@@ -200,11 +200,13 @@ export const options = {
           },
         },
       },
-      securitySchema: {
+      securitySchemes: {
         bearerAuth: {
           type: "http",
+          name: "Authorization",
           scheme: "bearer",
-          bearerFormat: "JWT",
+          in: "header",
+          // bearerFormat: "JWT",
         },
       },
     },
