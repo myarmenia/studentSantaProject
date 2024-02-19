@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userController from "../Controller/UserController.js";
+import isAuth from "../Middleware/IsAuth.js";
 
 const userRouter = Router();
 
@@ -85,9 +86,6 @@ userRouter.post("/signin", userController.signIn);
  *            schema:
  *              type: object
  *              properties:
- *                email:
- *                  type: string
- *                  format: email
  *                refreshToken:
  *                  type: string
  *                  format: token
@@ -101,7 +99,7 @@ userRouter.post("/signin", userController.signIn);
  *
  */
 
-userRouter.post("/refresh", userController.refresh);
+userRouter.post("/refresh",isAuth, userController.refresh);
 
 /**
  * @swagger

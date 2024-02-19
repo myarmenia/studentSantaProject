@@ -2,6 +2,7 @@ import User from "../Model/UserModel.js";
 import bcrypt from "bcrypt";
 import { generateAccessToken, generateRefreshToken } from "../Utils/Token.js";
 import RefreshToken from "../Model/TokenModel.js";
+import jwt from "jsonwebtoken";
 
 const userService = {
   signUp: async (email, password) => {
@@ -45,25 +46,32 @@ const userService = {
       return { message: "wrong password" };
     }
   },
-  refresh: async (refreshToken, email) => {
+  refresh: async (refreshToken) => {
     try {
       if (refreshToken) {
-        const token = await RefreshToken.findOne({ token: refreshToken });
-        if (!token) {
-          return { message: "User not logged" };
-        }
-        await RefreshToken.findOneAndDelete({ token: refreshToken });
-        const signUp = await User.findOne({ email });
+      const token = await RefreshToken.findOne({ token: refreshToken });
+      if (!token) {
+        return { message: "User not logged" };
+      }
+      const decodedToken = jwt.verify(refreshToken, process.env.REFRESH_TOKEN);
 
-        const newAccessToken = generateRefreshToken(signUp);
-        const newRefreshToken = generateAccessToken(signUp);
+      await RefreshToken.findOneAndDelete({ token: refreshToken });
+      const newAccessToken = generateRefreshToken({
+        _id: decodedToken._id,
+        email: decodedToken.email,
+      });
+      const newRefreshToken = generateAccessToken({
+        _id: decodedToken._id,
+        email: decodedToken.email,
+      });
+      const newRefreshTokenMongoDB = new RefreshToken({
+        userId: decodedToken._id,
+        token: newRefreshToken,
+      });
+      await newRefreshTokenMongoDB.save();
+      
+      return {accessToken: newAccessToken,refreshToken: newRefreshToken };
 
-        const newRefreshTokenMongoDB = new RefreshToken({
-          userId: signUp._id,
-          token: newRefreshToken,
-        });
-        newRefreshTokenMongoDB.save();
-        return { newAccessToken, newRefreshToken };
       } else {
         return { message: "not logged in" };
       }
@@ -74,7 +82,7 @@ const userService = {
   logout: async (token, res) => {
     try {
       if (!token) {
-        await RefreshToken.deleteMany({})
+        await RefreshToken.deleteMany({});
         return { message: "User out" };
       } else {
         await res.clearCookies("token");
