@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 const userService = {
   signUp: async (email, password) => {
+    try{
     const signUp = await User.findOne({ email });
     if (!signUp) {
       const newUser = new User({
@@ -18,8 +19,13 @@ const userService = {
     } else {
       return { message: "User Registered" };
     }
+  } catch (error) {
+    console.error(error)
+  }
   },
   signIn: async (email, password) => {
+    try {
+    
     const signUp = await User.findOne({ email });
 
     if (!signUp) {
@@ -45,6 +51,9 @@ const userService = {
     } else {
       return { message: "wrong password" };
     }
+  } catch (error) {
+    console.error(error)
+  }
   },
   refresh: async (refreshToken) => {
     try {
@@ -85,10 +94,12 @@ const userService = {
         await RefreshToken.deleteMany({});
         return { message: "User out" };
       } else {
-        await res.clearCookies("token");
+        
         return { message: "Logout succesful" };
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   },
 };
 
