@@ -38,5 +38,5 @@ app.use("/api/auth", userRouter);
 app.use("/api/get", itemsRouter);
 
 app.listen(process.env.PORT, () => {
-  console.log(`localhost ${process.env.PORT}`);
+  console.log("DB Connected");
 });

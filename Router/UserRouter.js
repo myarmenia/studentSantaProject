@@ -99,7 +99,7 @@ userRouter.post("/signin", userController.signIn);
  *
  */
 
-userRouter.post("/refresh",isAuth, userController.refresh);
+userRouter.post("/refresh", isAuth, userController.refresh);
 
 /**
  * @swagger
@@ -107,6 +107,16 @@ userRouter.post("/refresh",isAuth, userController.refresh);
  *   post:
  *      summary: User Logout
  *      tags: [Auth]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                refreshToken:
+ *                  type: string
+ *                  format: token
  *      responses:
  *          200:
  *              description: Success
